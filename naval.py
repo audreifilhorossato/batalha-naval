@@ -82,8 +82,8 @@ def entrada_posicao(tabuleiro, cabecalho, combate):
     while True:
         os.system('cls')
         tabuleiro.mostrar_tabuleiro(combate=combate)
-        #escolha =  input(f'Escolha uma posicao para {cabecalho}').strip().upper()
-        escolha = 'A2'
+        escolha =  input(f'Escolha uma posicao para {cabecalho}').strip().upper()
+        #escolha = 'A2'
         if len(escolha) < 2:
             print('Formato invalido!')
             input("Pressione Enter para continuar...")
@@ -104,7 +104,7 @@ def entrada_posicao(tabuleiro, cabecalho, combate):
         else:
             print(f'Alvo travado em "{escolha}"')
             
-            input("Pressione Enter para continuar...")
+            #input("Pressione Enter para continuar...")
             return letra, numero
 
 def escolha_frota():
@@ -313,249 +313,6 @@ def posicionamentoia(frota,tabuleiro):
                     tabuleiro.prenchimento[letra - j][numero] = 'N'
                     navio.posicao.append(chr(letra + 97 - j).upper()+str(numero))
 
-def escolhaia(tabuleiro):
-    if not hasattr(escolhaia, 'ult_l'):
-        escolhaia.ult_l = None
-        escolhaia.ult_n = None
-        escolhaia.ult_lc = None
-        escolhaia.ult_nc = None
-        escolhaia.ult_lm = None
-        escolhaia.ult_nm = None
-        escolhaia.caca = 1
-        escolhaia.ori = 1
-        escolhaia.ulttamfrota = 0
-        escolhaia.modo = 'ale'
-        escolhaia.cont = 1
-
-    while True:
-        l = random.randint(0, tabuleiro.tamanho -1)
-        n = random.randint(0, tabuleiro.tamanho -1)
-        while tabuleiro.prenchimento[l][n] != '~':
-            l = random.randint(0, tabuleiro.tamanho -1)
-            n = random.randint(0, tabuleiro.tamanho -1)
-        match escolhaia.modo:
-            case 'ale':
-                if escolhaia.ult_l != None and escolhaia.ult_n != None:
-                    if tabuleiro.prenchimento[escolhaia.ult_l][escolhaia.ult_n] == 'F':#falta coisa
-                        escolhaia.modo = 'lado'
-                        continue
-                escolhaia.ult_l = l
-                escolhaia.ult_n = n
-                break
-            case 'lado':
-                if escolhaia.ult_lc != None and escolhaia.ult_nc != None:
-                    if tabuleiro.prenchimento[escolhaia.ult_lc][escolhaia.ult_nc] == 'F':
-                        escolhaia.modo = 'mata'
-                        continue
-                    if tabuleiro.prenchimento[escolhaia.ult_lc][escolhaia.ult_nc] == 'X':
-                        if escolhaia.caca != 4:
-                            escolhaia.caca += 1
-                        else:
-                            escolhaia.caca = 1
-                while True:
-                    match escolhaia.caca:
-                        case 1:
-                            try:
-                                r = tabuleiro.prenchimento[escolhaia.ult_l + 1][escolhaia.ult_n]
-                            except IndexError:
-                                escolhaia.caca += 1 
-                                continue
-                            l = escolhaia.ult_l + 1
-                            n = escolhaia.ult_n
-                            if tabuleiro.prenchimento[l][n] != '~':
-                                escolhaia.caca += 1
-                                continue
-                            escolhaia.ult_lc = l
-                            escolhaia.ult_nc = n
-                            break
-                        case 2:
-                            try:
-
-                                r = tabuleiro.prenchimento[escolhaia.ult_l - 1][escolhaia.ult_n]
-                
-                            except IndexError:
-                                escolhaia.caca += 1 
-                                continue
-                            if escolhaia.ult_l - 1 < 0:
-                                escolhaia.caca += 1 
-                                continue
-                            l = escolhaia.ult_l - 1
-                            n = escolhaia.ult_n
-                            if tabuleiro.prenchimento[l][n] != '~':
-                                escolhaia.caca += 1
-                                continue
-                            escolhaia.ult_lc = l
-                            escolhaia.ult_nc = n
-                            break
-                        case 3:
-                            try:
-                                r = tabuleiro.prenchimento[escolhaia.ult_l][escolhaia.ult_n+1]
-                            except IndexError:
-                                escolhaia.caca += 1 
-                                continue
-                            l = escolhaia.ult_l 
-                            n = escolhaia.ult_n + 1
-                            if tabuleiro.prenchimento[l][n] != '~':
-                                escolhaia.caca += 1
-                                continue
-                            escolhaia.ult_lc = l
-                            escolhaia.ult_nc = n
-                            break
-                        case 4:
-                            try:
-                                r = tabuleiro.prenchimento[escolhaia.ult_l][escolhaia.ult_n - 1]
-                            except IndexError:
-                                escolhaia.caca = 1 
-                                continue
-                            if escolhaia.ult_n -1 < 0:
-                                escolhaia.caca = 1 
-                                continue
-                            l = escolhaia.ult_l 
-                            n = escolhaia.ult_n - 1
-                            if tabuleiro.prenchimento[l][n] != '~':
-                                escolhaia.caca = 1
-                                continue
-                            escolhaia.ult_lc = l
-                            escolhaia.ult_nc = n
-                            break
-                break
-            case 'mata':
-                if escolhaia.ulttamfrota != tabuleiro.num_destrocos:
-                    escolhaia.ulttamfrota = tabuleiro.num_destrocos
-                    escolhaia.modo = 'ale'
-                    escolhaia.ult_l = None
-                    escolhaia.ult_n = None
-                    escolhaia.ult_lc = None
-                    escolhaia.ult_nc = None
-                    escolhaia.ult_lm = None
-                    escolhaia.ult_nm = None
-                    continue
-
-                if escolhaia.ult_l == escolhaia.ult_lc:
-                    print("Horizonta")
-                    if escolhaia.ult_lm != None and escolhaia.ult_nm != None:
-                        if tabuleiro.prenchimento[escolhaia.ult_lm][escolhaia.ult_nm] == 'F':
-                            escolhaia.cont += 1
-                        if tabuleiro.prenchimento[escolhaia.ult_lm][escolhaia.ult_nm] != 'F' and escolhaia.cont > 1:
-                            escolhaia.cont = 1
-                            escolhaia.ori = -escolhaia.ori
-                            escolhaia.ult_lc = escolhaia.ult_l
-                            escolhaia.ult_nc = escolhaia.ult_n
-                            input('jsbedfjlavhfjhklhfvalkhsbvhklbv')
-                    while True:
-                        match escolhaia.ori:
-                            case 1:
-                                try:
-                                    r = tabuleiro.prenchimento[escolhaia.ult_lc][escolhaia.ult_nc + escolhaia.cont]
-                                except IndexError:
-                                    escolhaia.cont = 1
-                                    escolhaia.ori = -escolhaia.ori
-                                    escolhaia.ult_lc = escolhaia.ult_l
-                                    escolhaia.ult_nc = escolhaia.ult_n
-                                    continue
-                                l = escolhaia.ult_lc 
-                                n = escolhaia.ult_nc + escolhaia.cont
-                                if tabuleiro.prenchimento[l][n] != '~':
-                                    escolhaia.cont = 1
-                                    escolhaia.ori = -escolhaia.ori
-                                    escolhaia.ult_lc = escolhaia.ult_l
-                                    escolhaia.ult_nc = escolhaia.ult_n
-                                    continue
-                                escolhaia.ult_lm = l
-                                escolhaia.ult_nm = n
-                                break
-                            case -1:
-                                try:
-                                    r = tabuleiro.prenchimento[escolhaia.ult_lc][escolhaia.ult_nc - escolhaia.cont]
-                                except IndexError:
-                                    escolhaia.cont = 1
-                                    escolhaia.ori = -escolhaia.ori
-                                    escolhaia.ult_lc = escolhaia.ult_l
-                                    escolhaia.ult_nc = escolhaia.ult_n
-                                    continue
-                                if escolhaia.ult_nc - escolhaia.cont < 0:
-                                    escolhaia.cont = 1
-                                    escolhaia.ori = -escolhaia.ori
-                                    escolhaia.ult_lc = escolhaia.ult_l
-                                    escolhaia.ult_nc = escolhaia.ult_n
-                                    continue
-                                l = escolhaia.ult_lc 
-                                n = escolhaia.ult_nc - escolhaia.cont
-                                if tabuleiro.prenchimento[l][n] != '~':
-                                    escolhaia.cont = 1
-                                    escolhaia.ori = -escolhaia.ori
-                                    escolhaia.ult_lc = escolhaia.ult_l
-                                    escolhaia.ult_nc = escolhaia.ult_n
-                                    continue
-                                escolhaia.ult_lm = l
-                                escolhaia.ult_nm = n
-                                break
-                else:
-                    print('vertical')
-                    if escolhaia.ult_lm != None and escolhaia.ult_nm != None:
-                        if tabuleiro.prenchimento[escolhaia.ult_lm][escolhaia.ult_nm] == 'F':
-                            escolhaia.cont += 1
-                        if tabuleiro.prenchimento[escolhaia.ult_lm][escolhaia.ult_nm] != 'F' and escolhaia.cont > 1:
-                            escolhaia.cont = 1
-                            escolhaia.ori = -escolhaia.ori
-                            escolhaia.ult_lc = escolhaia.ult_l
-                            escolhaia.ult_nc = escolhaia.ult_n
-                    while True:
-                        match escolhaia.ori:
-                            case 1:
-                                try:
-                                    r = tabuleiro.prenchimento[escolhaia.ult_lc + escolhaia.cont][escolhaia.ult_nc]
-                                except IndexError:
-                                    escolhaia.cont = 1
-                                    escolhaia.ori = -escolhaia.ori
-                                    escolhaia.ult_lc = escolhaia.ult_l
-                                    escolhaia.ult_nc = escolhaia.ult_n
-                                    print("asdsfagdfnjyskjrtljthgfdghjtyhregfds")
-                                    continue
-                                l = escolhaia.ult_lc + escolhaia.cont
-                                n = escolhaia.ult_nc 
-                                if tabuleiro.prenchimento[l][n] != '~':
-                                    escolhaia.cont = 1
-                                    escolhaia.ori = -escolhaia.ori
-                                    escolhaia.ult_lc = escolhaia.ult_l
-                                    escolhaia.ult_nc = escolhaia.ult_n
-                                    print("asdsfagdfnjyskjrtljthgfdghjtyhregfdsssssssssssssssssssssssssss")
-                                    continue
-                                escolhaia.ult_lm = l
-                                escolhaia.ult_nm = n
-                                break
-                            case -1:
-                                try:
-                                    r = tabuleiro.prenchimento[escolhaia.ult_lc - escolhaia.cont][escolhaia.ult_nc]
-                                except IndexError:
-                                    escolhaia.cont = 1
-                                    escolhaia.ori = -escolhaia.ori
-                                    escolhaia.ult_lc = escolhaia.ult_l
-                                    escolhaia.ult_nc = escolhaia.ult_n
-                                    print("asdsfagdfnjyskjrtljthgfdghjtyhregfdaddddddddddddaaaaaaaaaaaaas")
-                                    continue
-                                if escolhaia.ult_lc - escolhaia.cont < 0:
-                                    escolhaia.cont = 1
-                                    escolhaia.ori = -escolhaia.ori
-                                    escolhaia.ult_lc = escolhaia.ult_l
-                                    escolhaia.ult_nc = escolhaia.ult_n 
-                                    print("dsaffsffffffffffffffffffff")
-                                    continue
-                                l = escolhaia.ult_lc - escolhaia.cont
-                                n = escolhaia.ult_nc
-                                if tabuleiro.prenchimento[l][n] != '~':
-                                    escolhaia.cont = 1
-                                    escolhaia.ori = -escolhaia.ori
-                                    escolhaia.ult_lc = escolhaia.ult_l
-                                    escolhaia.ult_nc = escolhaia.ult_n
-                                    print("asdsfagdfnjyskjrtljthgfdghjtyhregfdddddddaaaaseeeeeeeeeeeeeeeeeeeeeeds")
-                                    continue
-                                escolhaia.ult_lm = l
-                                escolhaia.ult_nm = n
-                                break
-                break
-    return l, n
-
 def e(tabuleiro):
     if not hasattr(e, 'modo'):
         e.modo = 'aleatorio'
@@ -563,6 +320,7 @@ def e(tabuleiro):
         e.segundofogo = ['l','n']
         e.ladosdesconhecidos = []
         e.ladosdesconhecidos2 = []
+        e.extremidades = []
         e.terceirofogo = ['l','n']
         e.ulttamfrota = tabuleiro.num_destrocos
         e.cont = 0
@@ -585,7 +343,7 @@ def e(tabuleiro):
                 if e.segundofogo != ['l','n']:
                     if tabuleiro.prenchimento[e.segundofogo[0]][e.segundofogo[1]] == 'F':
                         e.modo = 'afundar'
-                        input('PAUSEEEE')
+                        #input('PAUSEEEE')
                         continue
                 e.ladosdesconhecidos = []
                 try:
@@ -613,6 +371,21 @@ def e(tabuleiro):
                             e.ladosdesconhecidos.append([e.primeirofogo[0], e.primeirofogo[1] - 1])
                 except:
                     pass
+                if len(e.ladosdesconhecidos) == 0:
+                    e.ulttamfrota = tabuleiro.num_destrocos
+                    '''print(e.primeirofogo)
+                    print(e.segundofogo)
+                    print(e.terceirofogo)
+                    print(e.ladosdesconhecidos2)
+                    input()'''
+                    e.modo = 'aleatorio'
+                    e.primeirofogo = ['l','n']
+                    e.segundofogo = ['l','n']
+                    e.ladosdesconhecidos = []
+                    e.ladosdesconhecidos2 = []
+                    e.terceirofogo = ['l','n']
+                    e.cont = 0
+                    continue
 
                 tiro = random.randint(0, len(e.ladosdesconhecidos) - 1)
                 l = e.ladosdesconhecidos[tiro][0]
@@ -636,22 +409,50 @@ def e(tabuleiro):
                 if e.primeirofogo[0] == e.segundofogo[0]:
                     print('Horizontal')
                     if e.ladosdesconhecidos2 == []:
-                        e.cont += 1
+                        e.extremidades = [['l','n'],['l','n']]
                         try:
-                            if tabuleiro.prenchimento[e.segundofogo[0]][e.segundofogo[1] + e.cont] == '~':
-                                if tabuleiro.prenchimento[e.segundofogo[0]][e.segundofogo[1] + e.cont -1] != 'X':
-                                    e.ladosdesconhecidos2.append([e.segundofogo[0], e.segundofogo[1] + e.cont])
+                            c = 0 
+                            while tabuleiro.prenchimento[e.primeirofogo[0]][e.primeirofogo[1] + c] == 'F':
+                                e.extremidades[0][0] = e.primeirofogo[0]
+                                e.extremidades[0][1] = e.primeirofogo[1] + c
+                                c += 1
                         except:
                             pass
+
                         try:
-                            if tabuleiro.prenchimento[e.segundofogo[0]][e.segundofogo[1] - e.cont] == '~':
-                                if e.segundofogo[1] - e.cont >= 0:
-                                    if tabuleiro.prenchimento[e.segundofogo[0]][e.segundofogo[1] - e.cont +1] != 'X':
-                                        e.ladosdesconhecidos2.append([e.segundofogo[0], e.segundofogo[1] - e.cont])
+                            c = 0 
+                            while tabuleiro.prenchimento[e.primeirofogo[0]][e.primeirofogo[1] - c] == 'F':
+                                if e.primeirofogo[1] - c >= 0:
+                                    e.extremidades[1][0] = e.primeirofogo[0]
+                                    e.extremidades[1][1] = e.primeirofogo[1] - c
+                                c += 1
                         except:
                             pass
+                        
+                        #input(e.extremidades)
+
+                        try:
+                            if tabuleiro.prenchimento[e.extremidades[0][0]][e.extremidades[0][1] + 1] == '~':
+                                e.ladosdesconhecidos2.append([e.extremidades[0][0], e.extremidades[0][1] + 1])
+                        except:
+                            pass
+
+                        try:
+                            if tabuleiro.prenchimento[e.extremidades[1][0]][e.extremidades[1][1] - 1] == '~':
+                                if e.extremidades[1][1] - 1 >= 0:
+                                    e.ladosdesconhecidos2.append([e.extremidades[1][0], e.extremidades[1][1] - 1])
+                        except:
+                            pass
+
+                        #input(e.ladosdesconhecidos2)
+
                     if len(e.ladosdesconhecidos2) == 0:
                         e.ulttamfrota = tabuleiro.num_destrocos
+                        '''print(e.primeirofogo)
+                        print(e.segundofogo)
+                        print(e.terceirofogo)
+                        print(e.ladosdesconhecidos2)
+                        input()'''
                         e.modo = 'aleatorio'
                         e.primeirofogo = ['l','n']
                         e.segundofogo = ['l','n']
@@ -670,23 +471,50 @@ def e(tabuleiro):
                 else:
                     print('Vertical')
                     if e.ladosdesconhecidos2 == []:
-                        e.cont += 1
+                        e.extremidades = [['l','n'],['l','n']]
                         try:
-                            if tabuleiro.prenchimento[e.segundofogo[0]+ e.cont][e.segundofogo[1]] == '~':
-                                if tabuleiro.prenchimento[e.segundofogo[0]+ e.cont -1][e.segundofogo[1]] != 'X':
-                                    e.ladosdesconhecidos2.append([e.segundofogo[0]+ e.cont, e.segundofogo[1]])
-                        except:
-                            pass
-                        try:
-                            if tabuleiro.prenchimento[e.segundofogo[0]- e.cont][e.segundofogo[1]] == '~':
-                                if e.segundofogo[0] - e.cont >= 0:
-                                    if tabuleiro.prenchimento[e.segundofogo[0]- e.cont +1][e.segundofogo[1]] != 'X':
-                                        e.ladosdesconhecidos2.append([e.segundofogo[0] - e.cont, e.segundofogo[1]])
+                            c = 0 
+                            while tabuleiro.prenchimento[e.primeirofogo[0] + c][e.primeirofogo[1]] == 'F':
+                                e.extremidades[0][0] = e.primeirofogo[0] + c
+                                e.extremidades[0][1] = e.primeirofogo[1] 
+                                c += 1
                         except:
                             pass
 
+                        try:
+                            c = 0 
+                            while tabuleiro.prenchimento[e.primeirofogo[0] - c][e.primeirofogo[1]] == 'F':
+                                if e.primeirofogo[0] - c >= 0:
+                                    e.extremidades[1][0] = e.primeirofogo[0] - c
+                                    e.extremidades[1][1] = e.primeirofogo[1]
+                                c += 1
+                        except:
+                            pass
+                        
+                        #input(e.extremidades)
+
+                        try:
+                            if tabuleiro.prenchimento[e.extremidades[0][0] + 1][e.extremidades[0][1]] == '~':
+                                e.ladosdesconhecidos2.append([e.extremidades[0][0] + 1 , e.extremidades[0][1]])
+                        except:
+                            pass
+
+                        try:
+                            if tabuleiro.prenchimento[e.extremidades[1][0] - 1][e.extremidades[1][1]] == '~':
+                                if e.extremidades[1][0] - 1 >= 0:
+                                    e.ladosdesconhecidos2.append([e.extremidades[1][0] - 1, e.extremidades[1][1]])
+                        except:
+                            pass
+
+                        #input(e.ladosdesconhecidos2)
+
                     if len(e.ladosdesconhecidos2) == 0:
                         e.ulttamfrota = tabuleiro.num_destrocos
+                        '''print(e.primeirofogo)
+                        print(e.segundofogo)
+                        print(e.terceirofogo)
+                        print(e.ladosdesconhecidos2)
+                        input()'''
                         e.modo = 'aleatorio'
                         e.primeirofogo = ['l','n']
                         e.segundofogo = ['l','n']
@@ -700,15 +528,6 @@ def e(tabuleiro):
                     n = e.ladosdesconhecidos2[tiro][1]
                     e.ladosdesconhecidos2.pop(tiro)
                     return l, n
-                
-                
-
-
-
-
-
-
-    
 
 def main():
     match menu():
@@ -718,8 +537,8 @@ def main():
             tabuleiro_j2 = tabuleiro(dono="Jogador 1", tamanho=10, tipo="Combate")
 
             frota = escolha_frota()
-            #posicionamento(frota, tabuleiro_j1, tabuleiro_j2)
-            posicionamentoia(frota, tabuleiro_j1)
+            posicionamento(frota, tabuleiro_j1, tabuleiro_j2)
+            #posicionamentoia(frota, tabuleiro_j1)
 
             tabuleiro_c1 = tabuleiro(dono="Computador", tamanho=10, tipo="Principal")
             tabuleiro_c2 = tabuleiro(dono="Computador", tamanho=10, tipo="Combate")
@@ -743,11 +562,12 @@ def main():
                         tabuleiro_c1.prenchimento[l][n] = "F"
                         if navio.verifica_status() == 'MORTO':
                             print(f'O {navio.nome} foi afundado!')
+                            input()
                             tabuleiro_j2.num_destrocos += 1
                         break
                 if veri == False:
                     print("Errouuuuuuu")
-                input()
+                #input()
 
                 if tabuleiro_j2.num_destrocos >= len(frotac):
                     os.system('cls')
@@ -784,9 +604,6 @@ def main():
                     print("PERDEU")
                     input()
                     break
-
-                
-
 
         case "2":
             print('Saindo...')
