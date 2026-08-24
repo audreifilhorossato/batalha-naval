@@ -1,11 +1,8 @@
 import os
 import random
-os.system('color')
-os.system('cls')
+os.system('color & cls' if os.name == 'nt' else 'clear')
 linhas_validas = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
 colunas_validas = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
-
-
 
 class navio():
     def __init__(self,nome,tamanho):
@@ -71,7 +68,7 @@ class tabuleiro():
 def menu():
     opcao = ''
     while opcao not in ('1', '2'):
-        os.system('cls')
+        os.system('cls' if os.name == 'nt' else 'clear')
         print('Escolha uma opcao:')
         print('1. Novo Jogo')
         print('2. Sair')
@@ -80,7 +77,7 @@ def menu():
 
 def entrada_posicao(tabuleiro, cabecalho, combate):
     while True:
-        os.system('cls')
+        os.system('cls' if os.name == 'nt' else 'clear')
         tabuleiro.mostrar_tabuleiro(combate=combate)
         escolha =  input(f'Escolha uma posicao para {cabecalho}').strip().upper()
         #escolha = 'A2'
@@ -126,7 +123,7 @@ def posicionamento(frota,tabuleiro, combate):
         navio = frota[i]
         opcao = ''
         while opcao not in ('1', '2', '3', '4'):
-            os.system('cls')
+            os.system('cls' if os.name == 'nt' else 'clear')
             print(f'Escolha a orientação do navio {navio.nome}:')
             print('1. HORIZONTAL olhando para DIREITA')
             print('2. HORIZONTAL olhando para ESQUERDA')
@@ -570,12 +567,12 @@ def main():
                 #input()
 
                 if tabuleiro_j2.num_destrocos >= len(frotac):
-                    os.system('cls')
+                    os.system('cls' if os.name == 'nt' else 'clear')
                     print("GANHOU")
                     input()
                     break
 
-                '''os.system('cls')
+                '''os.system('cls' if os.name == 'nt' else 'clear')
                 print('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee')
                 tabuleiro_c1.mostrar_tabuleiro(combate=tabuleiro_c2)'''
                 
@@ -593,14 +590,14 @@ def main():
                         tabuleiro_c2.prenchimento[l][n] = "F"
                         tabuleiro_j1.prenchimento[l][n] = "F"
                         if navio.verifica_status() == 'MORTO':
-                            os.system('cls')
+                            os.system('cls' if os.name == 'nt' else 'clear')
                             print(f'O seu {navio.nome} foi afundado!')
                             input()
                             tabuleiro_c2.num_destrocos += 1
                         break
 
                 if tabuleiro_c2.num_destrocos >= len(frota):
-                    os.system('cls')
+                    os.system('cls' if os.name == 'nt' else 'clear')
                     print("PERDEU")
                     input()
                     break
