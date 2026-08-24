@@ -1,0 +1,27 @@
+from enum import Enum
+
+class StatusNavio(Enum):
+    INTEIRO = 1
+    AVARIADO = 2
+    AFUNDADO = 3
+
+class Navio:
+    def __init__(self, nome, tamanho):
+        self.nome = nome
+        self.tamanho = tamanho
+        self.status = StatusNavio.INTEIRO  
+        self.coordenadas = []
+        self.coordenadas_alvejadas = []
+
+    def verifica_status(self):
+        if self.status != StatusNavio.AFUNDADO:
+            if len(self.coordenadas_alvejadas) == len(self.coordenadas):
+                self.status = StatusNavio.MORTO
+        return self.status
+
+    def navio_alvejado(self, coordenadas):
+        if coordenadas in self.coordenadas:
+            self.coordenadas_alvejadas.append(coordenadas)
+            return True
+        else:
+            return False
