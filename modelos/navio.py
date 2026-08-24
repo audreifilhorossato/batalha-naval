@@ -25,3 +25,12 @@ class Navio:
             return True
         else:
             return False
+
+def criar_frota_padrao():
+    return [
+        Navio("Porta-Aviões", 5),
+        Navio("Encouraçado", 4),
+        Navio("Cruzador 1", 3),
+        Navio("Cruzador 2", 3),
+        Navio("Submarino 1", 2)
+    ]
