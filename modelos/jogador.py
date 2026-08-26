@@ -23,23 +23,24 @@ class JogadorHumano(Jogador):
                 Interface.mostrar_dois_tabuleiros(self.tab_ataque, self.tab_defesa)
                 
                 orientacao = Interface.pedir_orientacao(navio)
-                
-                coordenada, linha, coluna = Interface.receber_coordenadas(f" >>> Almirante, qual a coordenada inicial para o {navio.nome}?")
+
+                Interface.mostrar_mensagem(f"Qual a coordenada inicial para o {navio.nome}? ")
+                coordenada, linha, coluna = Interface.receber_coordenadas('')
                 
                 sucesso = self.tab_defesa.tentar_posicionar(navio, coordenada, linha, coluna, orientacao)
                 
                 if sucesso:
-                    Interface.mostrar_mensagem(f">>> {navio.nome} posicionado com sucesso!", velocidade=0.01)
+                    Interface.mostrar_mensagem(f"{navio.nome} posicionado com sucesso!", pausar=True)
                     break
                 else:
-                    Interface.mostrar_mensagem(">>> Erro: Limites excedidos ou colisão.")
+                    Interface.mostrar_mensagem("Erro: Limites excedidos ou colisão.")
                     continue
 
     def fazer_jogada(self):
         Interface.limpar_tela()
         Interface.mostrar_dois_tabuleiros(self.tab_ataque, self.tab_defesa)
 
-        coordenada, linha, coluna = Interface.receber_coordenadas(f" >>> Almirante, qual a coordenada para travar o alvo? ")
+        coordenada, linha, coluna = Interface.receber_coordenadas(f">>> Almirante, qual a coordenada para travar o alvo? ")
         return coordenada, linha, coluna
 
 
@@ -70,10 +71,8 @@ class JogadorComputador(Jogador):
                 sucesso = self.tab_defesa.tentar_posicionar(navio, coordenada, linha, coluna, orientacao)
                 
                 if sucesso:
-                    
                     break
                 else:
-                    
                     continue
     
     def fazer_jogada(self):
@@ -127,11 +126,6 @@ class JogadorComputador(Jogador):
                         pass
                     if len(self.lados_desconhecidos) == 0:
                         self.ulttamfrota = self.tab_ataque.num_destrocos
-                        '''print(self.primeiro_fogo)
-                        print(self.segundo_fogo)
-                        print(self.terceiro_fogo)
-                        print(self.lados_desconhecidos2)
-                        input()'''
                         self.modo = 'aleatorio'
                         self.primeiro_fogo = ['l','n']
                         self.segundo_fogo = ['l','n']
@@ -185,7 +179,7 @@ class JogadorComputador(Jogador):
                             except:
                                 pass
                             
-                            #input(self.extremidades)
+                       
 
                             try:
                                 if self.tab_ataque.dados[self.extremidades[0][0]][self.extremidades[0][1] + 1] == '~':
@@ -200,15 +194,10 @@ class JogadorComputador(Jogador):
                             except:
                                 pass
 
-                            #input(self.lados_desconhecidos2)
+                           
 
                         if len(self.lados_desconhecidos2) == 0:
                             self.ulttamfrota = self.tab_ataque.num_destrocos
-                            '''print(self.primeiro_fogo)
-                            print(self.segundo_fogo)
-                            print(self.terceiro_fogo)
-                            print(self.lados_desconhecidos2)
-                            input()'''
                             self.modo = 'aleatorio'
                             self.primeiro_fogo = ['l','n']
                             self.segundo_fogo = ['l','n']
@@ -263,15 +252,10 @@ class JogadorComputador(Jogador):
                             except:
                                 pass
 
-                            #input(self.lados_desconhecidos2)
+        
 
                         if len(self.lados_desconhecidos2) == 0:
                             self.ulttamfrota = self.tab_ataque.num_destrocos
-                            '''print(self.primeiro_fogo)
-                            print(self.segundo_fogo)
-                            print(self.terceiro_fogo)
-                            print(self.lados_desconhecidos2)
-                            input()'''
                             self.modo = 'aleatorio'
                             self.primeiro_fogo = ['l','n']
                             self.segundo_fogo = ['l','n']

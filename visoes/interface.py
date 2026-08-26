@@ -15,7 +15,7 @@ class Interface:
         return cores.get(simbolo, simbolo)
 
     @staticmethod
-    def mostrar_mensagem(texto, velocidade=0.03, pausar=True):
+    def mostrar_mensagem(texto, velocidade=0.02, pausar=True):
         print(">>> ", end='') 
         
         for letra in texto:
@@ -25,7 +25,9 @@ class Interface:
         print()
         
         if pausar:
-            time.sleep(0)
+            time.sleep(1)
+
+        return ''
 
     @staticmethod       
     def mostrar_dois_tabuleiros(tabuleiro_defesa, tabuleiro_ataque):
@@ -82,21 +84,52 @@ class Interface:
 
     @staticmethod
     def pedir_orientacao(navio):
+        print("\n┌────────────────────────────────────────────────────────┐")
+        print(f"│  ORDEM DO COMANDO: POSICIONAMENTO DE FROTA             │")
+        print(f"│  Embarcação : {navio.nome.upper():<25} Comprimento : {navio.tamanho}│")
+        print("├────────────────────────────────────────────────────────┤")
+        print("│  Selecione a proa da embarcação para manobra:          │")
+        print("│    [1] ◄── Horizontal (Proa voltada para a OESTE)      │")
+        print("│    [2] ──► Horizontal (Proa voltada para a LESTE)      │")
+        print("│    [3]  ▲  Vertical   (Proa voltada para o NORTE)      │")
+        print("│    [4]  ▼  Vertical   (Proa voltada para o SUL)        │")
+        print("└────────────────────────────────────────────────────────┘")
         while True:
-            print("\n┌────────────────────────────────────────────────────────┐")
-            print(f"│  ORDEM DO COMANDO: POSICIONAMENTO DE FROTA             │")
-            print(f"│  Embarcação : {navio.nome.upper():<25} Comprimento : {navio.tamanho}│")
-            print("├────────────────────────────────────────────────────────┤")
-            print("│  Selecione a proa da embarcação para manobra:          │")
-            print("│    [1] ◄── Horizontal (Proa voltada para a OESTE)      │")
-            print("│    [2] ──► Horizontal (Proa voltada para a LESTE)      │")
-            print("│    [3]  ▲  Vertical   (Proa voltada para o NORTE)      │")
-            print("│    [4]  ▼  Vertical   (Proa voltada para o SUL)        │")
-            print("└────────────────────────────────────────────────────────┘")
-            
-            opcao = input(">>> Aguardando coordenadas táticas, Almirante: ").strip()
 
+            Interface.mostrar_mensagem("Aguardando coordenadas táticas, Almirante: ")
+            opcao = input()
             if opcao in ['1', '2', '3', '4']:
                 return opcao
                 
-            Interface.mostrar_mensagem('Erro: Número inválido! Use letras de 0 até 4.', velocidade=0.02)
+            Interface.mostrar_mensagem('Erro: Número inválido! Use letras de 0 até 4.')
+
+    @staticmethod
+    def tela_vitoria():
+        Interface.limpar_tela()
+        print("\n┌────────────────────────────────────────────────────────┐")
+        print("│                  ★ VITÓRIA NAVAL! ★                    │")
+        print("├────────────────────────────────────────────────────────┤")
+        print(f"│  Parabéns, Almirante                                   │")
+        print("│  A frota inimiga foi completamente aniquilada!         │")
+        print("│  Os mares agora estão sob o seu total domínio.         │")
+        print("└────────────────────────────────────────────────────────┘\n")
+        Interface.mostrar_mensagem("Pressione ENTER para retornar à base...")
+        input()
+
+    @staticmethod
+    def tela_derrota():
+        Interface.limpar_tela()
+        print("\n┌────────────────────────────────────────────────────────┐")
+        print("│                  ☠ DERROTA NAVAL ☠                     │")
+        print("├────────────────────────────────────────────────────────┤")
+        print(f"│  Almirante!                                            │")
+        print("│  Nossas forças foram abatidas e a frota afundou.       │")
+        print("│  Ordem geral: Evacuar imediatamente o quadrante!       │")
+        print("└────────────────────────────────────────────────────────┘\n")
+        Interface.mostrar_mensagem("Pressione ENTER para encerrar a missão...")
+        input()
+
+    @staticmethod
+    def aviso_afundamento(nome_navio, inimigo=True):
+        alvo = "inimigo" if inimigo else "aliado"
+        print(f"\n[!] ALERTA TÁTICO: O {nome_navio.upper()} ({alvo}) foi afundado!")

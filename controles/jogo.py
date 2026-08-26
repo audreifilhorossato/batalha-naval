@@ -11,10 +11,9 @@ class Jogo:
     def iniciar(self):
         self.j2.posicionar_frota()
         self.j1.posicionar_frota()
-        while not self._verificar_fim_de_jogo():
-            self.executar_turno()
-        print('FIM DE JOGO')
-        input()
+        veri_fim_jogo = True
+        while veri_fim_jogo:
+            veri_fim_jogo = self.executar_turno()
             
     def executar_turno(self):
         
@@ -30,17 +29,16 @@ class Jogo:
                 self.j1.tab_ataque.alterar_posicao(l,n,'F')
                 
                 if navio.verifica_status() == StatusNavio.AFUNDADO:
-                    os.system('cls' if os.name == 'nt' else 'clear')
-                    print(f'O {navio.nome} inimigo foi afundado!')
+                    Interface.limpar_tela()
+                    Interface.aviso_afundamento(navio.nome, inimigo=True)
                     input()
                     self.j1.tab_ataque.num_destrocos += 1
                 break
 
 
         if self.j1.tab_ataque.num_destrocos  >= len(self.j2.frota):
-            os.system('cls' if os.name == 'nt' else 'clear')
-            print("GANHOU")
-            input()
+            Interface.tela_vitoria()
+            return False
         
         cood, l, n = self.j2.fazer_jogada()
 
@@ -54,17 +52,18 @@ class Jogo:
                 self.j2.tab_ataque.alterar_posicao(l,n,'F')
                 
                 if navio.verifica_status() == StatusNavio.AFUNDADO:
-                    os.system('cls' if os.name == 'nt' else 'clear')
-                    print(f'O seu {navio.nome} foi afundado!')
+                    Interface.limpar_tela()
+                    Interface.aviso_afundamento(navio.nome, inimigo=False)
                     input()
                     self.j2.tab_ataque.num_destrocos += 1
                 break
 
 
         if self.j2.tab_ataque.num_destrocos  >= len(self.j1.frota):
-            os.system('cls' if os.name == 'nt' else 'clear')
-            print("PERDEU")
-            input()
+            Interface.tela_derrota()
+            return False
+
+        return True
 
     def _verificar_fim_de_jogo(self):
         return False
