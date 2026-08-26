@@ -1,7 +1,19 @@
 import time
 import os
+import sys
 
 class Interface:
+    @staticmethod
+    def limpar_buffer():
+        if os.name == "nt":  # Windows
+            import msvcrt
+            while msvcrt.kbhit():
+                msvcrt.getch()
+
+        else:  # Linux, macOS
+            import termios
+            termios.tcflush(sys.stdin, termios.TCIFLUSH)
+
     @staticmethod
     def colorir(simbolo):
 
@@ -27,6 +39,7 @@ class Interface:
         if pausar:
             time.sleep(1)
 
+        Interface.limpar_buffer()
         return ''
 
     @staticmethod       
