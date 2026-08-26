@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class TipoTabuleiro(Enum):
     DEFESA = 1
     ATAQUE = 2
@@ -21,8 +20,8 @@ class Tabuleiro:
         direcoes = {
             '1': (0, -1), # Horizontal Esquerda
             '2': (0, 1),  # Horizontal Direita
-            '3': (1, 0),  # Vertical Baixo
-            '4': (-1, 0)  # Vertical Cima
+            '3': (1, 0),  # Vertical Cima
+            '4': (-1, 0)  # Vertical Baixo
         }
         
         d_linha, d_coluna = direcoes[orientacao]
@@ -41,7 +40,8 @@ class Tabuleiro:
             posicoes_temporarias.append((nova_linha, nova_coluna))
 
         for l, c in posicoes_temporarias:
-            self.prenchimento[l][c] = 'N'
-            navio.posicao.append(coordenada)
+            self.dados[l][c] = 'N'
+            coordenada = str(chr(l + 65) + str(c))
+            navio.coordenadas.append(coordenada)
 
         return True

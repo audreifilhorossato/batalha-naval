@@ -16,7 +16,7 @@ class Navio:
     def verifica_status(self):
         if self.status != StatusNavio.AFUNDADO:
             if len(self.coordenadas_alvejadas) == len(self.coordenadas):
-                self.status = StatusNavio.MORTO
+                self.status = StatusNavio.AFUNDADO
         return self.status
 
     def navio_alvejado(self, coordenadas):
@@ -27,10 +27,14 @@ class Navio:
             return False
 
 def criar_frota_padrao():
-    return [
+    '''return [
         Navio("Porta-Aviões", 5),
         Navio("Encouraçado", 4),
         Navio("Cruzador 1", 3),
         Navio("Cruzador 2", 3),
         Navio("Submarino 1", 2)
+    ]'''
+    return [
+        Navio("Porta-Aviões", 5),
+        Navio("Encouraçado", 4)
     ]

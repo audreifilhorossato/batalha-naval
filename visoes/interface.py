@@ -25,10 +25,10 @@ class Interface:
         print()
         
         if pausar:
-            time.sleep(1.5)
+            time.sleep(0)
 
     @staticmethod       
-    def mostrar_dois_tabuleiros(tabuleiro_ataque, tabuleiro_defesa):
+    def mostrar_dois_tabuleiros(tabuleiro_defesa, tabuleiro_ataque):
         print("---------------- QUADRANTE INIMIGO ----------------   │   ----------------- QUADRANTE AMIGO -----------------")
         print('    ', end='')
         for i in range(tabuleiro_ataque.tamanho):
@@ -85,13 +85,13 @@ class Interface:
         while True:
             print("\n┌────────────────────────────────────────────────────────┐")
             print(f"│  ORDEM DO COMANDO: POSICIONAMENTO DE FROTA             │")
-            print(f"│  Embarcação : {navio.nome.upper():<25} Comprimento : {navio.tamanho}   │")
+            print(f"│  Embarcação : {navio.nome.upper():<25} Comprimento : {navio.tamanho}│")
             print("├────────────────────────────────────────────────────────┤")
             print("│  Selecione a proa da embarcação para manobra:          │")
             print("│    [1] ◄── Horizontal (Proa voltada para a OESTE)      │")
             print("│    [2] ──► Horizontal (Proa voltada para a LESTE)      │")
-            print("│    [3]  ▼  Vertical   (Proa voltada para o SUL)        │")
-            print("│    [4]  ▲  Vertical   (Proa voltada para o NORTE)      │")
+            print("│    [3]  ▲  Vertical   (Proa voltada para o NORTE)      │")
+            print("│    [4]  ▼  Vertical   (Proa voltada para o SUL)        │")
             print("└────────────────────────────────────────────────────────┘")
             
             opcao = input(">>> Aguardando coordenadas táticas, Almirante: ").strip()
