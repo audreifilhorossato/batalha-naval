@@ -26,15 +26,29 @@ class Navio:
         else:
             return False
 
-def criar_frota_padrao():
-    '''return [
-        Navio("Porta-Aviões", 5),
-        Navio("Encouraçado", 4),
-        Navio("Cruzador 1", 3),
-        Navio("Cruzador 2", 3),
-        Navio("Submarino 1", 2)
-    ]'''
-    return [
-        Navio("Porta-Aviões", 5),
-        Navio("Encouraçado", 4)
-    ]
+def criar_frota_padrao(opcao):
+    match opcao:
+        case 1:
+            return [ #Frota Classica
+                Navio("Porta-Aviões", 5),
+                Navio("Encouraçado", 4),
+                Navio("Cruzador", 3),
+                Navio("Destroyer", 3),
+                Navio("Submarino", 2)
+            ]
+        case 2:
+            return [ #Frota Pesada
+                Navio("Porta-Aviões 1", 5),
+                Navio("Porta-Helicopteros", 5),
+                Navio("Encouraçado", 4),
+                Navio("Fragata", 3),
+            ]
+        case 3:
+            return [ #Frota Furtiva
+                Navio("Encouraçado", 4),
+                Navio("Cruzador", 3),
+                Navio("Destroyer", 3),
+                Navio("Fragata", 3),
+                Navio("Corveta", 2),
+                Navio("Submarino", 2)
+            ]

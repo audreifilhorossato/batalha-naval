@@ -146,3 +146,53 @@ class Interface:
     def aviso_afundamento(nome_navio, inimigo=True):
         alvo = "inimigo" if inimigo else "aliado"
         print(f"\n[!] ALERTA TÁTICO: O {nome_navio.upper()} ({alvo}) foi afundado!")
+
+    @staticmethod
+    def escolher_frota():
+        Interface.limpar_tela()
+        print("\n┌────────────────────────────────────────────────────────────────┐")
+        print("│  ORDEM DO COMANDO: SELEÇÃO DE FROTA NAVAL                      │")
+        print("├────────────────────────────────────────────────────────────────┤")
+        print("│  Selecione a composição tática para o combate:                 │")
+        print("│                                                                │")
+        print("│  [1] Frota Clássica (Balanceada)                               │")
+        print("│      ↳ Porta-Aviões (5) | Encouraçado (4) | Cruzador (3)       │")
+        print("│        Destroyer (3) | Submarino (2)                           │")
+        print("│                                                                │")
+        print("│  [2] Frota Pesada (Alto Calibre)                               │")
+        print("│      ↳ Porta-Aviões 1 (5) | Porta-Helicopteros (5)             │")
+        print("│        Encouraçado (4) | Fragata (3)                           │")
+        print("│                                                                │")
+        print("│  [3] Frota Furtiva (Ágil e Tática)                             │")
+        print("│      ↳ Encouraçado (4) | Cruzador (3) | Destroyer (3)          │")
+        print("│        Fragata (3) | Corveta (2) | Submarino (2)               │")
+        print("└────────────────────────────────────────────────────────────────┘")
+        
+        while True:
+            Interface.mostrar_mensagem("Aguardando escolha estratégica, Almirante: ")
+            opcao = input().strip()
+            
+            if opcao in ['1', '2', '3']:
+                return int(opcao)
+                
+            Interface.mostrar_mensagem('Erro: Frota inválida! Digite o número 1, 2 ou 3.')
+        
+    @staticmethod
+    def menu_principal():
+        print("\n┌────────────────────────────────────────────────────────────────┐")
+        print("│  COMANDO CENTRAL: BATALHA NAVAL                                │")
+        print("├────────────────────────────────────────────────────────────────┤")
+        print("│                                                                │")
+        print("│      [1] INICIAR NOVO JOGO                                     │")
+        print("│      [2] SAIR DO SISTEMA                                       │")
+        print("│                                                                │")
+        print("└────────────────────────────────────────────────────────────────┘")
+        
+        while True:
+            Interface.mostrar_mensagem("Aguardando ordens, Almirante: ")
+            opcao = input().strip()
+            
+            if opcao in ['1', '2']:
+                return int(opcao)
+                
+            Interface.mostrar_mensagem('Erro: Comando inválido! Digite 1 para Jogar ou 2 para Sair.')

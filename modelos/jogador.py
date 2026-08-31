@@ -4,16 +4,16 @@ from modelos.tabuleiro import Tabuleiro, TipoTabuleiro
 import random
 
 class Jogador:
-    def __init__(self, nome):
+    def __init__(self, nome, opcao):
         self.nome = nome
         self.tab_defesa = Tabuleiro(nome, 10, TipoTabuleiro.DEFESA)
         self.tab_ataque = Tabuleiro(nome, 10, TipoTabuleiro.ATAQUE)
-        self.frota = criar_frota_padrao()
+        self.frota = criar_frota_padrao(opcao)
         self.destrocos_inimigos = 0
 
 class JogadorHumano(Jogador):
-    def __init__(self, nome):
-        super().__init__(nome)
+    def __init__(self, nome, opcao):
+        super().__init__(nome, opcao)
     
     def posicionar_frota(self):
         for navio in self.frota:
@@ -45,8 +45,8 @@ class JogadorHumano(Jogador):
 
 
 class JogadorComputador(Jogador):
-    def __init__(self, nome="Computador"):
-        super().__init__(nome)
+    def __init__(self, nome="Computador", opcao=1):
+        super().__init__(nome, opcao)
         
         self.modo = 'aleatorio'
         self.primeiro_fogo = ['l','n']

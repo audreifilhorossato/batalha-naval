@@ -2,18 +2,23 @@ import os
 from modelos.jogador import Jogador, JogadorComputador, JogadorHumano
 from visoes.interface import Interface
 from modelos.navio import StatusNavio, Navio
+import random
 
 class Jogo:
     def __init__(self):
-        self.j1 = JogadorHumano('Audrei')
-        self.j2 = JogadorComputador('AI')
+        pass
 
     def iniciar(self):
+        opcao = Interface.escolher_frota()
+        self.j1 = JogadorHumano('Audrei', opcao)
+        self.j2 = JogadorComputador('AI', random.randint(1,3))
+
         self.j2.posicionar_frota()
         self.j1.posicionar_frota()
         veri_fim_jogo = True
         while veri_fim_jogo:
             veri_fim_jogo = self.executar_turno()
+        return True
             
     def executar_turno(self):
         
