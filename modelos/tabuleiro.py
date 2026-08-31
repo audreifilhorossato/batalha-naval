@@ -20,8 +20,8 @@ class Tabuleiro:
         direcoes = {
             '1': (0, -1), # Horizontal Esquerda
             '2': (0, 1),  # Horizontal Direita
-            '3': (1, 0),  # Vertical Cima
-            '4': (-1, 0)  # Vertical Baixo
+            '3': (-1, 0),  # Vertical Cima
+            '4': (1, 0)  # Vertical Baixo
         }
         
         d_linha, d_coluna = direcoes[orientacao]

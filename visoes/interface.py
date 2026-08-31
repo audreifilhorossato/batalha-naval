@@ -102,10 +102,10 @@ class Interface:
         print(f"│  Embarcação : {navio.nome.upper():<25} Comprimento : {navio.tamanho}│")
         print("├────────────────────────────────────────────────────────┤")
         print("│  Selecione a proa da embarcação para manobra:          │")
-        print("│    [1] ◄── Horizontal (Proa voltada para a OESTE)      │")
-        print("│    [2] ──► Horizontal (Proa voltada para a LESTE)      │")
-        print("│    [3]  ▲  Vertical   (Proa voltada para o NORTE)      │")
-        print("│    [4]  ▼  Vertical   (Proa voltada para o SUL)        │")
+        print("│    [1] ◄── Horizontal (Preenche de LESTE para OESTE)   │")
+        print("│    [2] ──► Horizontal (Preenche de OESTE para LESTE)   │")
+        print("│    [3]  ▲  Vertical   (Preenche de SUL para NORTE)     │")
+        print("│    [4]  ▼  Vertical   (Preenche de NORTE para SUL)     │")
         print("└────────────────────────────────────────────────────────┘")
         while True:
 
