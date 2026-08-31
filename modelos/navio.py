@@ -20,7 +20,7 @@ class Navio:
         return self.status
 
     def navio_alvejado(self, coordenadas):
-        if coordenadas in self.coordenadas:
+        if (coordenadas in self.coordenadas) and (coordenadas not in self.coordenadas_alvejadas):
             self.coordenadas_alvejadas.append(coordenadas)
             return True
         else:

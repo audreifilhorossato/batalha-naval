@@ -69,6 +69,3 @@ class Jogo:
             return False
 
         return True
-
-    def _verificar_fim_de_jogo(self):
-        return False
