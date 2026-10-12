@@ -70,6 +70,8 @@ O computador sorteia a frota dele entre as três, sem revelar qual é. Como toda
 
 ### 3. Posicionamento dos navios
 
+
+
 Para cada navio, o jogo pede a **direção** e depois a **coordenada inicial**. O navio começa na coordenada e se estende na direção escolhida:
 
 | Opção | Direção                  | Exemplo: Cruzador (3) em `E5` |
